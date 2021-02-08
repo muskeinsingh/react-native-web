@@ -13,14 +13,14 @@ class ReactPackage {
 
   /**
    *
-   * @param {Array} nativeModulesToRegister
+   * @param {Array} nativeModulesToCreate
    * this function takes in modules as an array and defines it under the name(which is accessible using getName method of the module)
    * in the this.nativeModules map. this map is then exposed for the NativeModule exports to use and export
    * This assumes that the module passed to register will have a getName() method, which means that we will be sending array of
    * instances of modules and not just the class
    */
-  registerNativeModules(nativeModulesToRegister) {
-    nativeModulesToRegister.map(module => {
+  createNativeModules(nativeModulesToCreate) {
+    nativeModulesToCreate.map(module => {
       const nativeModuleName = module.getName();
       if (!this.nativeModules[nativeModuleName]) {
         throw new Error(`Native Module with name ${nativeModuleName} is duplicated`);
@@ -35,4 +35,4 @@ class ReactPackage {
 }
 
 export const ReactPackageRegistry = new ReactPackage();
-export default ReactPackageRegistry.registerNativeModules.bind(ReactPackageRegistry);
+export default ReactPackageRegistry.createNativeModules.bind(ReactPackageRegistry);
